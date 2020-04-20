@@ -4,18 +4,18 @@
 # In[ ]:
 
 
-import CBC_Encryption
+from CBC_Encryption_Decryption import CBC_Encryption
 import timeit
 
 
 # In[ ]:
 
 
-print('Please make sure the plaintext file is in the same folder, please enter the file name: ')
+print('Please make sure the plaintext file is in the same folder, please enter the file name: \n')
 FileName=input()
-print('Please enter the file initial word consisting of 16 characters ( keep it well ): ')
+print('Please enter the file initial word consisting of 16 characters ( keep it well ): \n')
 IV=input()
-print('Please enter the encryption key consisting of 16 characters ( keep it well ): ')
+print('Please enter the encryption key consisting of 16 characters ( keep it well ): \n')
 Key=input()
 print('Please wait for a moment...')
 
@@ -29,7 +29,7 @@ start_time = timeit.default_timer()
 # In[ ]:
 
 
-CBC_Encryption.CBC_Encryption(FileName, IV, Key)
+CBC_Encryption(FileName, IV, Key)
 
 
 # In[ ]:

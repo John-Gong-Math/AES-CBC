@@ -4,17 +4,17 @@
 # In[ ]:
 
 
-import CBC_Decryption
+from CBC_Encryption_Decryption import CBC_Decryption
 import timeit
 
 # In[ ]:
 
 
-print('Please make sure the ciphertext file is in the same folder, please enter the file name: ')
+print('Please make sure the ciphertext file is in the same folder, please enter the file name: \n')
 FileName=input()
-print('Please enter the file initial word consisting of 16 characters ( as you must know ): ')
+print('Please enter the file initial word consisting of 16 characters ( as you must know ): \n')
 IV=input()
-print('Please enter the encryption key consisting of 16 characters ( as you must know ): ')
+print('Please enter the encryption key consisting of 16 characters ( as you must know ): \n')
 Key=input()
 print('Please wait for a moment...')
 
@@ -22,7 +22,7 @@ print('Please wait for a moment...')
 # In[ ]:
 
 start_time = timeit.default_timer()
-CBC_Decryption.CBC_Decryption(FileName, IV, Key)
+CBC_Decryption(FileName, IV, Key)
 
 
 # In[ ]:

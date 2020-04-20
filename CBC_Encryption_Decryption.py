@@ -4,7 +4,7 @@
 # In[ ]:
 
 
-from AES_Ciphe_InvCipher import Cipher, InvCipher
+from AES_Cipher_InvCipher import Cipher, InvCipher
 from KeyExpansion import KeyExpansion
 
 
