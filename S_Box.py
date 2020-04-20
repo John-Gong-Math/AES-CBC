@@ -19,13 +19,6 @@ def Int2Vect(n):        # input an integer, output the binary digits, completed 
 # In[2]:
 
 
-def Left_s(b, s):     # input an integer, output integer as shift leftwords by s seen as a binary ...a_1 a_0
-    return b*2**s    # exactly the same meaning
-
-
-# In[3]:
-
-
 def Vect2Int(V):      # binary digits into integer
     s=0
     for i in range(len(V)):
@@ -33,7 +26,7 @@ def Vect2Int(V):      # binary digits into integer
     return s
 
 
-# In[4]:
+# In[3]:
 
 
 def DivByte(a,b):   # division of the two bytes (already converted into integers) as elements of F_2^8 i.e polynomials
@@ -48,29 +41,24 @@ def DivByte(a,b):   # division of the two bytes (already converted into integers
     q0=0
     while not s<0:
         q[s]=1
-        r=Left_s(b, s)^r
+        r=(b<<s)^r
         s=len(bin(r))-len(bin(b))
     q0=Vect2Int(q)
     return r, q0
     
 
 
-# In[5]:
+# In[4]:
 
 
-def X_MulByte(b):   #input one byte as integer, output Xb as integer of byte
-    V=Int2Vect(b)
-    l=V[7]      # coefficient of x_7 of b
-    if l==0:
-        return Left_s(b, 1)
+def X_MulByte(a):   #input one byte as integer, output Xb as integer of byte
+    if (a & 0x80):
+        return (((a << 1) ^ 0x1B) & 0xFF)
     else:
-        a=Left_s(b-2**7, 1)
-        return (a^27)      # x^8=(0b00011011)
-    
-    
+        return a<<1    
 
 
-# In[6]:
+# In[5]:
 
 
 def MulByte(a,b):    #input two bytes (as integers), ouput product as in F_2^8
@@ -86,7 +74,7 @@ def MulByte(a,b):    #input two bytes (as integers), ouput product as in F_2^8
     
 
 
-# In[7]:
+# In[6]:
 
 
 def InvByte(b):     # input converted byte as integer, output the inverse byte in F_2^8
@@ -106,7 +94,7 @@ def InvByte(b):     # input converted byte as integer, output the inverse byte i
     return V0 # r0=U0*a+V0*b
 
 
-# In[8]:
+# In[7]:
 
 
 def MulMat(M, V):         # matrix over F_2
@@ -120,7 +108,7 @@ def MulMat(M, V):         # matrix over F_2
     
 
 
-# In[9]:
+# In[8]:
 
 
 def AddVect(V,W):
@@ -130,10 +118,10 @@ def AddVect(V,W):
     return S
 
 
-# In[10]:
+# In[9]:
 
 
-def SubByte(byte_int):   # input byte integer, output byte INTEGER
+def SubByte0(byte_int):   # input byte integer, output byte INTEGER
     V=Int2Vect(byte_int)      
     M=[[1,0,0,0,1,1,1,1], [1,1,0,0,0,1,1,1], [1,1,1,0,0,0,1,1], [1,1,1,1,0,0,0,1], [1,1,1,1,1,0,0,0], [0,1,1,1,1,1,0,0], [0,0,1,1,1,1,1,0], [0,0,0,1,1,1,1,1]]
     C=[1,1,0,0,0,1,1,0]
@@ -145,10 +133,10 @@ def SubByte(byte_int):   # input byte integer, output byte INTEGER
         return Vect2Int(R)
 
 
-# In[11]:
+# In[10]:
 
 
-def InvSubByte(byte_int):     # input byte integer, output byte INTEGER
+def InvSubByte0(byte_int):     # input byte integer, output byte INTEGER
     V=Int2Vect(byte_int)      
     iM=[[0, 0, 1, 0, 0, 1, 0, 1], [1, 0, 0, 1, 0, 0, 1, 0], [0, 1, 0, 0, 1, 0, 0, 1], [1, 0, 1, 0, 0, 1, 0, 0], [0, 1, 0, 1, 0, 0, 1, 0], [0, 0, 1, 0, 1, 0, 0, 1], [1, 0, 0, 1, 0, 1, 0, 0], [0, 1, 0, 0, 1, 0, 1, 0]]
     C=[1,1,0,0,0,1,1,0]
@@ -160,22 +148,23 @@ def InvSubByte(byte_int):     # input byte integer, output byte INTEGER
         return n
 
 
-# In[12]:
+# In[11]:
 
 
 def S_Box():
     S=[' ' for i in range(256)]
     iS=[' ' for j in range(256)]
     for i in range(256):
-        el1=SubByte(i)
-        el2=InvSubByte(i)
+        el1=SubByte0(i)
+        el2=InvSubByte0(i)
         S[i]=el1
         iS[i]=el2
     return S, iS 
 
 
-# In[13]:
+# In[12]:
 
 
-S_Box()
+Sbox=S_Box()[0]; InvSbox=S_Box()[1]
+Sbox, InvSbox
 
